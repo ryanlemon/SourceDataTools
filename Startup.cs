@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataTools.Services;
+using DataTools.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +34,11 @@ namespace DataTools
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
+            /*Configuration*/
+            services.Configure<DataPathConfiguration>(Configuration.GetSection("ScreenData"));
+
+            /*Service*/
+            services.AddScoped<ITextDataService, TextDataService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
