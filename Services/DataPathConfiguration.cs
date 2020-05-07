@@ -8,9 +8,9 @@ namespace DataTools.Services
     public class DataPathConfiguration
     {
         public string DataRoot { get; set; }
-        public List<DataTypeMap> DataTypes { get; set; }
+        public List<DataTypeItem> DataTypes { get; set; }
     }
-    public class DataTypeMap
+    public class DataTypeItem
     {
         public string Type { get; set; }
         public string Value { get; set; }

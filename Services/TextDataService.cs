@@ -40,19 +40,19 @@ namespace DataTools.Services
 
         public string[] GetList(TextType textType)
         {
-            switch (textType)
-            {
-                case TextType.Label:
+            string fullPath = Path.Combine(FilePath(textType),"Default.json");
 
-                    break;
-                case TextType.Message:
-
-                    break;
-                default:
-                    _logger.LogError("Invalid TextType", this);
-                    break;
-            }
             return null;
+        }
+        private string FilePath(TextType textType)
+        {
+            DataTypeItem typeItem = _dataPath.Value.DataTypes.Find(item =>
+            {
+                if (item.Type.ToLower() == textType.ToString().ToLower())
+                    return true;
+                return false;
+            });
+            return Path.Combine(_dataPath.Value.DataRoot, typeItem.Value);
         }
     }
 }
