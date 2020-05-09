@@ -7,7 +7,8 @@ using DataTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.CodeAnalysis;
-
+using DataTools.Modules;
+using System.Text.Json;
 namespace DataTools.Services
 {
     public class TextDataService : ITextDataService
@@ -40,9 +41,13 @@ namespace DataTools.Services
 
         public string[] GetList(TextType textType)
         {
-            string fullPath = Path.Combine(FilePath(textType),"Default.json");
+            string fullPath = FilePath(textType);
+            MessageModule messages;
+            using (FileStream fs = File.OpenRead(fullPath))
+            {
 
-            return null;
+            }
+                return null;
         }
         private string FilePath(TextType textType)
         {
@@ -52,7 +57,7 @@ namespace DataTools.Services
                     return true;
                 return false;
             });
-            return Path.Combine(_dataPath.Value.DataRoot, typeItem.Value);
+            return Path.Combine(_dataPath.Value.DataRoot, typeItem.Value, "Default.json");
         }
     }
 }
