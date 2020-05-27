@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using DataTools.Services.Interfaces;
 using Swashbuckle.AspNetCore.SwaggerGen;
-
+using System.Text.Json;
 namespace DataTools.Controllers
 {
     [Route("api/[controller]")]
@@ -29,14 +29,15 @@ namespace DataTools.Controllers
 
         // GET: api/Text/5
         [HttpGet("{type}", Name = "Get")]
-        public string Get(string type)
+        public async Task<IActionResult> Get(string type)
         {
             TextType _type;
             if (Enum.TryParse<TextType>(type, true, out _type))
             {
-                _textDataService.GetList(_type);
+                var rt = await _textDataService.GetList(_type);
+                return new JsonResult(JsonSerializer.Serialize(rt));
             }
-            return "value";
+            return null;
         }
 
         // POST: api/Text

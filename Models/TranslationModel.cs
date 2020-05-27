@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DataTools.Modules
+namespace DataTools.Models
 {
 
-    public class TranslationModule
+    public class TranslationModel
     {
         public DsTranslation dsTranslation { get; set; }
     }

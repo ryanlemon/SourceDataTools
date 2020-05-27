@@ -7,8 +7,10 @@ using DataTools.Services.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.CodeAnalysis;
-using DataTools.Modules;
+using DataTools.Models;
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
+
 namespace DataTools.Services
 {
     public class TextDataService : ITextDataService
@@ -39,15 +41,15 @@ namespace DataTools.Services
             return "";
         }
 
-        public string[] GetList(TextType textType)
+        public async Task<object> GetList(TextType textType)
         {
             string fullPath = FilePath(textType);
-            MessageModule messages;
             using (FileStream fs = File.OpenRead(fullPath))
             {
-
+                object rt = await JsonSerializer.DeserializeAsync<object>(fs);
+                return rt;
             }
-                return null;
+            return null;
         }
         private string FilePath(TextType textType)
         {
@@ -57,7 +59,8 @@ namespace DataTools.Services
                     return true;
                 return false;
             });
-            return Path.Combine(_dataPath.Value.DataRoot, typeItem.Value, "Default.json");
+            return Path.Combine(_dataPath.Value.DataRoot, typeItem.Value, "default.json");
         }
+
     }
 }

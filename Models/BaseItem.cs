@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json;
+using Newtonsoft.Json;
 
-namespace DataTools.Modules
+namespace DataTools.Models
 {
     public class BaseItem
     {
-        public string SystemID { get; set; }
+        [JsonProperty(PropertyName ="system-id")]
+        public string systemID { get; set; }
+        [JsonProperty(PropertyName = "update-by")]
         public string UpdateBy { get; set; }
         public string UpdateTime { get; set; }
         public string UpdateDate { get; set; }
